@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,14 +11,37 @@
   <script src="2.js"></script>
   <script src="axios.min.js"></script>
 </head>
+
 <body>
-    fuck you man !!;
-    <h2 id="p"></h2>
+  fuck you man !!;
+  <h2 id="p"></h2>
+  <input type='file' id="filea" />
 </body>
 <script>
-  axios.get("/api/fuckyou").then(val => {
-    console.log(val, ' axios~~~');
-    document.getElementById('p').innerHTML = val.data;
-  })
+  // axios.get("/api/fuckyou").then(val => {
+  //   console.log(val, ' axios~~~');
+  //   document.getElementById('p').innerHTML = val.data;
+  // })
+  window.onload = function () {
+    let filea = document.getElementById("filea");
+    filea.addEventListener('change', event => {
+      let file = event.target.files[0];
+      let form = new FormData();
+      let filename = file.name.split(".")[0];
+      let filelast = file.name.split(".")[1];
+      form.append('hehe', file, filename + new Date().valueOf()+"." + filelast);
+      console.log(file, form);
+      axios.post("/api/upload", form, {
+        headers: {
+          contentTypeaaa: 'fuckyou',
+          // processData: false,
+          // contentType: false,
+        }
+      }).then(val => {
+        console.log(val);
+      })
+    }, false)
+  }
 </script>
+
 </html>

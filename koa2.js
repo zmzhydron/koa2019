@@ -3,7 +3,8 @@ const fs = require("fs");
 const Path = require("path");
 const koaStatic = require('koa-static');
 const koaRouter = require("koa-router")();
-
+const koaMulter = require('koa-multer');
+const moduleUpload = require('./koa-modules/upload.js')
 const app = new KOA();
 app.use(koaStatic(Path.resolve(__dirname, './')));
 // app.use(koaRouter.routes()).use(koaRouter.allowedMethods());
@@ -19,9 +20,10 @@ koaRouter.get("/api/fuckyou", async (o, next) => {
   o.body = o.shitloadofmoney;
   // o.body = o.state.nigger;
 })
+koaRouter.post("/api/upload", ...moduleUpload())
 app.use(async (o, next) => {
   console.log(o.shitloadofmoney, '$$$$$$$$$$$$$$');
-  if(!o.shitloadofmoney){
+  if (!o.shitloadofmoney) {
     o.shitloadofmoney = [];
   }
   o.shitloadofmoney.push(1);
